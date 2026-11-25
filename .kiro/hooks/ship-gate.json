@@ -1,0 +1,10 @@
+{
+  "name": "Ship gate before commit",
+  "version": "1.0.0",
+  "description": "Blocks a commit that would break the privacy claim or ship a decoder that cannot parse its own fixtures.",
+  "when": { "type": "preToolUse", "toolTypes": ["shell"] },
+  "then": {
+    "type": "command",
+    "command": "node scripts/check.mjs"
+  }
+}

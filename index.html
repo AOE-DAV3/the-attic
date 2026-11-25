@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Attic — open files modern software refuses</title>
+<meta name="description" content="Drop in a PCX or TGA from a dead machine. It is identified from its bytes, decoded in your browser, and rescued to PNG. Nothing is uploaded.">
+<link rel="stylesheet" href="css/attic.css">
+</head>
+<body>
+
+<canvas id="dust" aria-hidden="true"></canvas>
+
+<div class="wrap">
+
+  <header>
+    <h1>THE ATTIC <span>· file rescue</span></h1>
+    <p class="privacy">nothing leaves this machine</p>
+  </header>
+
+  <p class="lede">
+    Every old format outlives the program that made it. A <strong>PCX</strong> from a 1994
+    scanner. A <strong>TGA</strong> from a DOS game. An <strong>IFF</strong> from Amiga paint software that no longer runs. Modern software looks at these and shrugs.
+    Drop one here — it is identified from its <strong>bytes, not its extension</strong>, decoded
+    in your browser, and can be rescued to PNG. No upload, no account, no server.
+  </p>
+
+  <label id="drop" for="file">
+    <div class="cue">Drop a dead file here</div>
+    <div class="sub">or click to choose · PCX · TGA · Amiga IFF · IFF animation</div>
+    <input id="file" type="file" accept=".pcx,.tga,.iff,.mod,image/*">
+  </label>
+
+  <div class="stage-grid">
+
+    <div>
+      <div id="stage">
+        <div id="empty">
+          <span class="glyph">▤</span>
+          nothing decoded yet
+        </div>
+        <canvas id="preview" hidden></canvas>
+      </div>
+      <div id="log"><div class="log-line">waiting for a file…</div></div>
+    </div>
+
+    <aside id="card" hidden>
+      <h2>What came out</h2>
+      <dl class="row"><dt>file</dt><dd id="fileName">—</dd></dl>
+      <dl class="row"><dt>size</dt><dd id="fileSize">—</dd></dl>
+      <dl class="row"><dt>format</dt><dd id="fileFormat">—</dd></dl>
+      <dl class="row"><dt>identify</dt><dd id="fileConf">—</dd></dl>
+      <dl class="row"><dt>pixels</dt><dd id="fileDims">—</dd></dl>
+      <dl class="row"><dt>header</dt><dd id="fileMeta">—</dd></dl>
+      <dl class="row" id="frameRow" hidden><dt>frame</dt><dd id="frameNum">—</dd></dl>
+
+      <div class="actions">
+        <button id="dlPng" class="primary" disabled>Rescue as PNG</button>
+        <button id="dlJpg" disabled>Rescue as JPEG</button>
+        <button id="copy" disabled>Copy metadata</button>
+      </div>
+    </aside>
+
+  </div>
+
+  <div id="verdict" class="verdict" hidden><span id="verdictText"></span></div>
+
+  <div class="actions" style="grid-template-columns:1fr 1fr;margin-top:18px">
+    <button id="sample" class="ghost">Load the sample from 1994</button>
+    <button id="clear" class="ghost">Clear</button>
+  </div>
+
+  <footer>
+    <p>
+      <strong>Why this exists.</strong> Digital preservation fails quietly: the files survive, the
+      software does not. Every existing converter is paid, locked to one operating system, or makes you
+      upload your archive to somebody else's server. This one is a static page with no network calls in it —
+      you can read the source and confirm that before you drop anything sensitive in.
+    </p>
+    <p>
+      Decoders are specified in <code>.kiro/specs/</code> and proven by <code>tests/run.js</code>.
+      Formats: <code>PCX</code> (1985) · <code>TGA</code> (1984) · <code>IFF ILBM</code> (1985) with HAM and Extra-Half-Brite · <code>IFF ANIM</code> animations.
+    </p>
+  </footer>
+
+</div>
+
+<script src="js/decoders/pcx.js"></script>
+<script src="js/decoders/tga.js"></script>
+<script src="js/decoders/ilbm.js"></script>
+<script src="js/decoders/anim.js"></script>
+<script src="js/sniff.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

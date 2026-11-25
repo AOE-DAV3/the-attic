@@ -1,0 +1,17 @@
+{
+  "name": "Decoder conformance on save",
+  "version": "1.0.0",
+  "description": "Binary parsers fail in ways that look fine until a real file arrives. This hook runs the conformance suite every time a decoder or fixture is saved, so a regression is caught at the keystroke instead of at the demo.",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "js/decoders/*.js",
+      "tools/make-fixtures.js",
+      "tests/run.js"
+    ]
+  },
+  "then": {
+    "type": "command",
+    "command": "node tests/run.js"
+  }
+}
